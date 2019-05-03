@@ -1,0 +1,25 @@
+<package format="2">
+  <name>charmboy</name>
+  <version>0.0.1</version>
+  <description>
+    Publishers and subscribers that use the parameter server, dynamic
+    reconfigure, timers, and custom messages. Examples for Python and C++ are
+    included.
+  </description>
+  <author>Todo</author>
+  <maintainer email="todo@todo.com">Todo</maintainer>
+  <license>BSD</license>
+  <url>https://github.com/kingkolibri/CharmBoy</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+  <depend>dynamic_reconfigure</depend>
+  <depend>roscpp</depend>
+  <depend>rosgraph_msgs</depend>
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+
+  <test_depend>rostest</test_depend>
+</package>
