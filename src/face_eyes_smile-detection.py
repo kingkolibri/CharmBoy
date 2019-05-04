@@ -103,8 +103,8 @@ if __name__ == '__main__':
     eye_cascade = cv2.CascadeClassifier('../models/eye.xml')
     smile_cascade = cv2.CascadeClassifier('../models/smile.xml')
 
-    cap = cv2.VideoCapture(0)
-    # cap = cv2.VideoCapture('../temp/testvid.mp4')
+    # cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture('/home/kingkolibri/Videos/Webcam/2019-05-04-191747.mp4')
     count = 1
 
     while True:
