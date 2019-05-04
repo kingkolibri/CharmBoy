@@ -1,118 +1,23 @@
 import cv2
 import numpy as np
 
-
-def get_circle(img, minR, maxR, p1, p2):
-    if len(img.shape) == 3:
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    circles = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 1, 20, param1=p1, param2=p2, minRadius=minR, maxRadius=maxR)
-    circles = np.uint8(np.around(circles))
-
-    # return the first circle
-    return circles[0][0]
-
-
-def print_img(img, x, y, w, h):
-    if w != 0 and h != 0:
-        cv2.imshow('detected circles', img[x:x + w, y:y + h])
-        cv2.imwrite('app-1/1.jpg', img[x:x + w, y:y + h])
-    else:
-        cv2.imshow('detected circles', img)
-        cv2.imwrite('app-1/1.jpg', img)
-    cv2.waitKey(0)
-
-    cv2.destroyAllWindows()
-
-
-def reject_out(img, xc, yc, r):
-    row = len(img)
-    col = len(img[0])
-
-    for x in range(0, row):
-        for y in range(0, col):
-            res = (x - xc) * (x - xc) + (y - yc) * (y - yc)
-            if res > r * r:
-                img[x][y] = 0
-
-
-def reject_in(img, xc, yc, r):
-    xs = xc - r
-    ys = yc - r
-
-    for x in range(xs, xs + 2 * r):
-        for y in range(ys, ys + 2 * r):
-            res = (x - xc) * (x - xc) + (y - yc) * (y - yc)
-            if res < r * r:
-                img[x][y] = 0
-
-
-def extract_iris(img):
-    NoneType = type(None)
-    if type(img) == NoneType:
-        return False
-
-    blurimg = cv2.medianBlur(img, 5)
-    grayimg = cv2.cvtColor(blurimg, cv2.COLOR_BGR2GRAY)
-    edges = cv2.Canny(grayimg, 100, 200)
-
-    circles = cv2.HoughCircles(edges, cv2.HOUGH_GRADIENT, 1, 20,
-                               param1=50, param2=30, minRadius=0, maxRadius=100)
-    if type(circles) == NoneType:
-        return False
-
-    circles = np.uint16(circles)
-    for i in circles[0, :]:
-        # draw the outer circle
-        cv2.circle(img, (i[0], i[1]), i[2], (0, 255, 0), 2)
-        # draw the center of the circle
-        cv2.circle(img, (i[0], i[1]), 2, (0, 0, 255), 3)
-    cv2.imshow('detected circles', img)
-
-    # edges = cv2.Canny(grayimg, 100, 200)
-    # cord = get_circle(edges, 35, 0, 50, 40)
-    # draw the outer circle
-    # cv2.circle(img,(cord[0],cord[1]),cord[2],(0,255,0),2)
-    # draw the center of the circle
-    # cv2.circle(img,(cord[0],cord[1]),2,(0,0,255),3)
-
-    # h = 2*cord[2]
-    # w = 2*cord[2]
-    # x = cord[1]-cord[2]
-    # y = cord[0]-cord[2]
-    # nimg = img[x:x+w,y:y+h]
-
-    # reject_out(nimg, h/2, w/2, h/2)
-    # print_img(cimg,0,0,0,0)
-
-    # nimg = cv2.cvtColor(nimg, cv2.COLOR_GRAY2BGR)
-    # cord    = get_circle(nimg, 0, cord[2]-1, 50, 30)
-    # print (nimg[0:w][cord[0]])
-    # draw the outer circle
-    # cv2.circle(nimg,(cord[0],cord[1]),cord[2],(0,255,0),2)
-    # draw the center of the circle
-    # cv2.circle(nimg,(cord[0],cord[1]),2,(0,0,255),3)
-    # reject_in(nimg, cord[1], cord[0], cord[2])
-    # print_img(nimg,0,0,0,0)
-    # print (nimg[0:w][cord[0]])
-
-
 if __name__ == '__main__':
 
     face_cascade = cv2.CascadeClassifier('../models/frontalface_default.xml')
     eye_cascade = cv2.CascadeClassifier('../models/eye.xml')
     smile_cascade = cv2.CascadeClassifier('../models/smile.xml')
+    glass_cascade = cv2.CascadeClassifier('../models/glasses_cascade.xml')
 
-    # cap = cv2.VideoCapture(0)
-    cap = cv2.VideoCapture('/home/kingkolibri/Videos/Webcam/2019-05-04-191747.mp4')
+    #cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture('../data/testvideo2.mp4')
     count = 1
 
     while True:
 
         ret, frame = cap.read()
         # Blur frame
-        # frame_blur = cv2.GaussianBlur(frame,(15,15),0)
-        frame_blur = frame
+        frame_blur = cv2.GaussianBlur(frame,(15,15),0)
+        # frame_blur = frame
         frame_gray = cv2.cvtColor(frame_blur, cv2.COLOR_BGR2GRAY)
 
         # Display resulting frame
@@ -132,7 +37,7 @@ if __name__ == '__main__':
                                                    minNeighbors=22,
                                                    minSize=(25, 25),
                                                    )
-
+            print('Number of eyes:'+str(len(eyes)))
             for (ex, ey, ew, eh) in eyes:
                 cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
 
@@ -152,7 +57,17 @@ if __name__ == '__main__':
                     if (M['m00'] != 0):
                         cx = int(M['m10'] / M['m00'])
                         cy = int(M['m01'] / M['m00'])
-                        cv2.circle(roi_eye_col, (cx, cy), int(2), [-1, 255, 3], 3)
+                        #cv2.circle(roi_eye_col, (cx, cy), int(2), [-1, 255, 3], 3)
+                        r = 3;
+                        rectX = int((cx - r))
+                        rectY = int((cy - r))
+                        crop_img = roi_eye_col[rectX:(rectX + 2 * r), rectY:(rectY + 2 * r)]
+                        crop_hsv = cv2.cvtColor(crop_img, cv2.COLOR_BGR2HSV)
+                        lower_yellow = np.array([30, 100, 100])
+                        upper_yellow = np.array([30, 255, 170])
+                        mask = cv2.inRange(crop_hsv, lower_yellow, upper_yellow)
+
+                        cv2.imshow('ROI EYE COLOR', crop_img)
 
                 roi_eye_hsv = cv2.cvtColor(roi_eye_col, cv2.COLOR_BGR2HSV)
 
@@ -170,6 +85,14 @@ if __name__ == '__main__':
 
             for (ex, ey, ew, eh) in smile:
                 cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 255), 2)
+
+            edges = cv2.Canny(roi_gray, 100, 200)
+            glass = glass_cascade.detectMultiScale(roi_gray, 1.04, 5)
+
+            for (gx, gy, gw, gh) in glass:
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                cv2.rectangle(roi_color, (gx, gy), (gx + gw, gy + gh), (255, 255, 0), 2)
+                cv2.putText(roi_color, 'glass', (gx, gy - 3), font, 0.5, (11, 255, 255), 2, cv2.LINE_AA)
 
                 # write here to database if with smile = +1 the longer it is
 
