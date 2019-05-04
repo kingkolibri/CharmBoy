@@ -15,11 +15,11 @@
   <build_depend>message_generation</build_depend>
   <exec_depend>message_runtime</exec_depend>
 
-  <depend>dynamic_reconfigure</depend>
-  <depend>roscpp</depend>
-  <depend>rosgraph_msgs</depend>
   <depend>rospy</depend>
   <depend>std_msgs</depend>
 
-  <test_depend>rostest</test_depend>
+  <depend>roboy_face</depend>
+  <depend>roboy_control_msgs</depend>
+  <depend>roboy_cognition_msgs</depend>
+
 </package>

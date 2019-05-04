@@ -1,11 +1,19 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(charmboy)
 
-find_package(catkin REQUIRED COMPONENTS dynamic_reconfigure message_generation roscpp rosgraph_msgs rospy std_msgs)
+find_package(catkin REQUIRED COMPONENTS
+    message_generation
+    rosgraph_msgs
+    rospy
+    std_msgs
+    roboy_control_msgs
+    roboy_cognition_msgs
+    roboy_face
+)
 
 add_message_files(
-  FILES
-  CharmboyMsg.msg
+    FILES
+    Compliment.msg
 )
 
 generate_messages(
@@ -14,13 +22,16 @@ generate_messages(
 )
 
 catkin_package(
-  CATKIN_DEPENDS dynamic_reconfigure message_runtime roscpp rosgraph_msgs rospy std_msgs
+  CATKIN_DEPENDS rospy std_msgs message_runtime
 )
 
-include_directories(include ${catkin_INCLUDE_DIRS})
+include_directories(
+    include ${catkin_INCLUDE_DIRS}
+)
 
-install(PROGRAMS src/pylistener.py src/pytalker.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+catkin_install_python(PROGRAMS src/pytalker.py src/roboy_face.py src/roboy_talk.py
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 install(DIRECTORY launch
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
