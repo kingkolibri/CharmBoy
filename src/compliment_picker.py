@@ -18,6 +18,7 @@ class ComplimentPicker:
     def _get_compliments_for_personality(self, df, personality, feature_names):
         temp = feature_names.copy()
         temp.insert(0, 'Text')
+        compliments = df
         compliments = df[df['Personality']==personality]
         compliments = compliments[temp]
         return compliments
