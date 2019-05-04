@@ -8,3 +8,5 @@ cfg/*.cfgc
 cfg/cpp
 src/node_example
 site
+venv/
+.idea/
