@@ -8,6 +8,9 @@
     <param name="rate" value="$(arg rate)"/>
   </node>
 
+  <node pkg="charmboy" type="roboy_face.py" name="roboy_face"></node>
+  <node pkg="charmboy" type="roboy_talk.py" name="roboy_talk"></node>
+
   <!-- Launch requried Roboy nodes -->
   <include file="$(find roboy_face)/launch/roboy_face.launch"/>
 

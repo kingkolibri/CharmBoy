@@ -3,7 +3,7 @@
 import sys
 import rospy
 from std_msgs.msg import String
-from roboy_communication.roboy_cognition_msgs.srv import Talk
+from roboy_cognition_msgs.srv import Talk
 
 def callback(data):
     mes = data.data

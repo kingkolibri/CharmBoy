@@ -25,10 +25,6 @@ catkin_package(
   CATKIN_DEPENDS rospy std_msgs message_runtime
 )
 
-include_directories(
-    include ${catkin_INCLUDE_DIRS}
-)
-
 catkin_install_python(PROGRAMS src/pytalker.py src/roboy_face.py src/roboy_talk.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 

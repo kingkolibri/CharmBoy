@@ -3,6 +3,7 @@ import os
 import rospy
 
 from charmboy.msg import Compliment
+from compliment_picker import ComplimentPicker
 
 class RoboyWhisperer(object):
     """Node roboy whisperer."""
@@ -10,6 +11,8 @@ class RoboyWhisperer(object):
     def __init__(self):
 
         self.enable = True
+
+        self.compliment_picker = ComplimentPicker("/home/kingkolibri/10_catkin_ws/src/CharmBoy/data/compliment_database.csv")
 
         if self.enable:
             """Turn on publisher."""

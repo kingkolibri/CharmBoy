@@ -2,7 +2,7 @@
 
 import rospy
 from std_msgs.msg import String
-from roboy_control_msgs.srv import Emotion
+from roboy_control_msgs.msg import Emotion
 
 facial_expressions = {
     'Shy': 'S',
