@@ -9,7 +9,7 @@ class ComplimentPicker:
 
     def __init__(self, csv_filename):
 
-        self.feature_names = ['eyes-blue',	'eyes-brown',	'eyes-green', 'smile']
+        self.feature_names = ['smile', 'eyes-blue',	'eyes-brown',	'eyes-green']
             # ['female',	'male',	'eyes',	'eyes-blue',	'eyes-brown',	'eyes-green',	'nose',	'smile', 'lips',	'hair',	'bracelet',	'glasses',	'style']
 
         self.compliments = pd.read_csv(csv_filename)
