@@ -5,37 +5,40 @@ from sklearn.neighbors import KNeighborsClassifier
 
 class ComplimentPicker:
 
-    def __init__(self, csv_filename, personality):
+    def __init__(self, csv_filename):
 
-        feature_names = ['Eyes', 'Nose', 'Mouth', 'Lips']
+        self.feature_names = ['female',	'male',	'eyes',	'eyes-blue',	'eyes-brown',	'eyes-green',	'nose',	'smile',
+                              'lips',	'hair',	'bracelet',	'glasses',	'style']
 
-        self.compliments = self._get_compliments_for_personality(pd.read_csv(csv_filename), personality, feature_names)
+        self.compliments = pd.read_csv(csv_filename)
 
-        self.kNN = KNeighborsClassifier(n_neighbors=1)
-        self.kNN.fit(X=self.compliments[feature_names].values,
-                     y=self.compliments[['Text']].index.values
-                     )
-    def _get_compliments_for_personality(self, df, personality, feature_names):
-        temp = feature_names.copy()
-        temp.insert(0, 'Text')
-        compliments = df
-        compliments = df[df['Personality']==personality]
-        compliments = compliments[temp]
-        return compliments
+    def pick_compliment(self, feature_vector, personality=None):
 
-    def pick_compliment(self, feature_vector):
-        probs = self.kNN.predict_proba(feature_vector)
-        noise = np.random.uniform(0, 0.5, probs.shape)
-        probs = probs+noise
-        compliment = self.compliments['Text'].loc[np.argmax(probs)]
+        if personality is None:
+            compliments_filtered = self.compliments
+        else:
+            compliments_filtered = self.compliments[self.compliments['personality'].str.contains(personality)]
+        compliments_filtered = compliments_filtered.reset_index()
+
+        kNN = KNeighborsClassifier(n_neighbors=5)
+        kNN.fit(X=compliments_filtered[self.feature_names].values,
+                 y=compliments_filtered[['text', 'face_to_make']].index.values
+                 )
+
+        probs = kNN.predict_proba(feature_vector)
+        noises = np.random.uniform(0, 0.05, probs.shape)
+        compliment = compliments_filtered['text'].loc[np.argmax(probs+noises)]
         return compliment
 
 
-def main():
-    picker = ComplimentPicker('../data/compliment_database.csv', 'neutral')
-    feat_vector = np.random.randint(10, size=(1,4))
+def test():
+    picker = ComplimentPicker('/home/kingkolibri/10_catkin_ws/src/CharmBoy/data/compliment_database.csv')
+    feat_vector = np.random.randint(10, size=(1, 13))
+    print(feat_vector)
 
-    compliment = picker.pick_compliment(feat_vector)
-    print(f'The compliment is: {compliment}')
+    compliment = picker.pick_compliment(feat_vector, personality=None)
+    print('The compliment is: {}'.format(compliment))
+
+
 if __name__ == '__main__':
-    main()
+    test()

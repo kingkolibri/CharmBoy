@@ -10,11 +10,11 @@ from charmboy.msg import Compliment
 def callback(compliment):
     mes = compliment.phrase
     print(mes)
-   # rospy.wait_for_service('/roboy/cognition/speech/synthesis/talk')
+    rospy.wait_for_service('/roboy/cognition/speech/synthesis/talk')
     try:
-       # stt = rospy.ServiceProxy('/roboy/cognition/speech/synthesis/talk', Talk)
-        #resp = stt(compliment.phrase)
-        #print(resp.success)
+        stt = rospy.ServiceProxy('/roboy/cognition/speech/synthesis/talk', Talk)
+        resp = stt(compliment.phrase)
+        print(resp.success)
     except rospy.ServiceException as e:
         print("Service call failed: %s", e)
 

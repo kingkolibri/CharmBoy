@@ -2,7 +2,7 @@
 
 import rospy
 from std_msgs.msg import String
-from roboy_communication_cognition.srv import *
+from roboy_cognition_msgs.srv import *
 from charmboy.msg import Compliment
 
 
@@ -46,7 +46,7 @@ def listener():
     rospy.init_node('roboy_face_caller', anonymous = True)
     rospy.Subscriber('roboy_compliments', String, callback)
 
-rospy.spin()
+    rospy.spin()
 
 if __name__ == '__main__':
     listener()
