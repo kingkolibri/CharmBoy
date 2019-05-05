@@ -10,15 +10,15 @@ MODEL_MEAN_VALUES = (78.4263377603, 87.7689143744, 114.895847746)
 age_list = ['(0, 2)', '(4, 6)', '(8, 12)', '(15, 20)', '(25, 32)', '(38, 43)', '(48, 53)', '(60, 100)']
 gender_list = ['Male', 'Female']
 
-
+#classification is performed with a pre-trained CNN model from https://talhassner.github.io/home/publication/2015_CVPR
 def initialize_caffe_model():
     print ('Loading models...')
     age_net = cv2.dnn.readNetFromCaffe(
         "pretrained_models/deploy_age.prototxt",
-        "pretrained_models/age_net.caffemodel")
+        "pretrained_models/age_net.caffemodel") #caffemodel download: https://drive.google.com/file/d/1kiusFljZc9QfcIYdU2s7xrtWHTraHwmW/view
     gender_net = cv2.dnn.readNetFromCaffe(
         "pretrained_models/deploy_gender.prototxt",
-        "pretrained_models/gender_net.caffemodel")
+        "pretrained_models/gender_net.caffemodel") #caffemodel download: https://drive.google.com/file/d/1W_moLzMlGiELyPxWiYQJ9KFaXroQ_NFQ/view
     print('Models successfully loaded')
     return (age_net, gender_net)
 
