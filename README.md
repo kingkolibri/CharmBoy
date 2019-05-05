@@ -3,8 +3,6 @@
 Welcome to CharmBoy, your parents favorite robot in-law. It talks nice at you and highlights your beautiful characteristics with only one goal, to make you smile.
 
 |  ![](https://github.com/kingkolibri/CharmBoy/blob/master/data/neutral.jpg)  | ![](https://github.com/kingkolibri/CharmBoy/blob/master/data/buddy.jpg)  |  ![](https://github.com/kingkolibri/CharmBoy/blob/master/data/shy.jpg)|   ![](https://github.com/kingkolibri/CharmBoy/blob/master/data/inlove.jpg)|    ![](https://github.com/kingkolibri/CharmBoy/blob/master/data/macho.jpg)|
-| ------------ | ------------ | ------------ | ------------ | ------------ |
-|  Neutral  | Buddy  | Shy | In love  | Macho  |
 
 ## What do I need to install?
 
