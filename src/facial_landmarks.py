@@ -8,6 +8,7 @@ import imutils
 from imutils import face_utils
 import dlib
 import cv2
+from scipy import stats
 
 
 # def checkeyecolor(img):
@@ -50,7 +51,7 @@ def isolateROI(img, landmarks):
         # if name =='right_eye' | name == 'left_eye'
         #	checkeyecolor(img)
         # mouthright_eyebrowleft_eyebrowright_eyeleft_eyenosejaw
-        cv2.waitKey(0)
+    cv2.waitKey(0)
 
     return img
 
@@ -89,15 +90,31 @@ def facedetection(img, detector, predictor):
     return img, img_face, shape
 
 
-def is_facing_camera(img, landmarks, threshold):
+def is_facing_camera(img, landmarks, threshold=25):
+
+    face_points = landmarks[0:17]
+    x_points = face_points[:, 0]
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x_points, face_points[:,1])
+    y_points = slope * x_points + intercept
+    line = np.array([x_points, y_points]).transpose()
+
+
+    d = []
+    for point in face_points:
+        d.append(np.linalg.norm(np.cross(line[-1] - line[0], line[0] - point)) / \
+            np.linalg.norm(line[-1] - line[0]))
+
+    d = np.array(d)
     i = 0
-    j = 17
+    j = 16
+    symmetrie = 0
+    while j-i > 1:
+        symmetrie = symmetrie + d[j] - d[i]
+        i = i+1
+        j = j-1
 
-    while j - i > 1:
-        i = i + 1
-        j = j - 1
-
-    if symmetrie > threshold:
+    if symmetrie < threshold:
         return True
     else:
         return False
@@ -116,7 +133,11 @@ if __name__ == '__main__':
         # load the input image, resize it, and convert it to grayscale
         ret, frame = cap.read()
 
-        frame, img_face = facedetection(frame, detector, predictor)
+        frame, img_face, landmarks = facedetection(frame, detector, predictor)
+        if is_facing_camera(img=img_face, landmarks=landmarks, threshold=25):
+            print("Person looking at us! Panic!!")
+        else:
+            print("No person facing us detected.")
 
         # show the output image with the face detections + facial landmarks
         cv2.imshow('img_face', img_face)
