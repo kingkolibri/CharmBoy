@@ -18,8 +18,8 @@ def detect_smile(img_mouth, detector_smile):
 	for (ex, ey, ew, eh) in smile:
 		cv2.rectangle(img_mouth, (ex, ey), (ex + ew, ey + eh), (0, 255, 255), 2)
 
-	cv2.imshow("smile", img_mouth)
-	cv2.waitKey(0)
+	# cv2.imshow("smile", img_mouth)
+	# cv2.waitKey(0)
 	if len(smile) > 0:
 		smile = 10
 		print('smile')
@@ -138,10 +138,6 @@ def isolate_roi(img, landmarks, detector_smile):
 		if name == 'mouth':
 			smile = detect_smile(img, detector_smile)
 			features.update(smile)
-		# mouthright_eyebrowleft_eyebrowright_eyeleft_eyenosejaw
-
-
-
 
 	return img, features
 
@@ -152,34 +148,40 @@ def facedetection(img, detector, predictor, detector_smile):
 	# detects faces in the grayscale image (multiple!)
 	rects = detector(gray, 1)
 
-	rect = rects[0]
-	# determine the facial landmarks for the face region, then
-	# convert the facial landmark (x, y)-coordinates to a NumPy array
-	shape = predictor(gray, rect)
-	shape = face_utils.shape_to_np(shape)
+	img_face = 0.
 
-	img, features = isolate_roi(img, shape, detector_smile)
-
-
-
-	# convert dlib's rectangle to a OpenCV-style bounding box
-	# [i.e., (x, y, w, h)], then draw the face bounding box
-	(x, y, w, h) = face_utils.rect_to_bb(rect)
-	cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
-
-	img_face = img[y:(y + h), x:(x + w)]
+	features = {
+		"blue": 0,
+		"brown": 0,
+		"green": 0,
+		"smile": 0
+	}
 
 
-	# loop over the (x, y)-coordinates for the facial landmarks and draw them on the image
-	for (x, y) in shape:
-		cv2.circle(frame, (x, y), 1, (0, 0, 255), -1)
+	if len(rects)>0:
+		rect = rects[0]
+		# determine the facial landmarks for the face region, then
+		# convert the facial landmark (x, y)-coordinates to a NumPy array
+		shape = predictor(gray, rect)
+		shape = face_utils.shape_to_np(shape)
+
+		img, features = isolate_roi(img, shape, detector_smile)
+
+
+		(x, y, w, h) = face_utils.rect_to_bb(rect)
+		cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
+
+		img_face = img[y:(y + h), x:(x + w)]
+
+
+		# loop over the (x, y)-coordinates for the facial landmarks and draw them on the image
+		for (x, y) in shape:
+			cv2.circle(frame, (x, y), 1, (0, 0, 255), -1)
 
 	return img, img_face, features
 
 
 if __name__ == '__main__':
-
-
 
 	# initialize dlib's face detector (HOG-based) and then create
 	# the facial landmark predictor
@@ -188,7 +190,7 @@ if __name__ == '__main__':
 	smile_cascade = cv2.CascadeClassifier('../models/smile.xml')
 
 	# Load Video
-	cap = cv2.VideoCapture('../data/testvideo_smile.mp4')
+	cap = cv2.VideoCapture(0)
 
 	while True:
 		# load the input image, resize it, and convert it to grayscale
