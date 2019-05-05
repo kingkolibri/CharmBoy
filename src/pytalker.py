@@ -5,6 +5,7 @@ import rospy
 from charmboy.msg import Compliment
 from compliment_picker import ComplimentPicker
 
+
 class RoboyWhisperer(object):
     """Node roboy whisperer."""
 
@@ -52,7 +53,7 @@ if __name__ == '__main__':
         while not rospy.is_shutdown():
             whisperer.make_compliment("I must be in a museum, because you truly are a work of art.", "happy")
 
-        rate.sleep();
+        rate.sleep()
     except rospy.ROSInterruptException:
         pass
 

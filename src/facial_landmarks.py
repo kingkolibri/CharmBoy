@@ -120,7 +120,7 @@ def is_facing_camera(img, landmarks, threshold=25):
         return False
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
     # initialize dlib's face detector (HOG-based) and then create
     # the facial landmark predictor
