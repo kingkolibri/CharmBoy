@@ -1,0 +1,61 @@
+Text,personality,face_to_make,female,male,eyes,eyes - blue,eyes - brown,eyes - green,nose,smile,lips,hair,bracelet,glasses,style
+You have beautiful eyes.,neutral,lucky,0,0,10,10,10,10,0,0,0,0,0,0,0
+I like your style.,neutral,smile blink,0,0,0,0,0,0,0,0,0,0,0,0,10
+You seem fun. Let's have a beer sometime.,buddy,smile blink,0,0,0,0,0,0,0,0,0,0,0,0,0
+Your blue eyes sparkle like stars.,neutral,hearts,0,0,10,10,0,0,0,0,0,0,0,0,0
+Your brown eyes sparkle like stars.,neutral,hearts,0,0,10,0,10,0,0,0,0,0,0,0,0
+Your green eyes sparkle like stars.,inlove,hearts,0,0,10,0,0,10,0,0,0,0,0,0,0
+Your eyes are as blue as the sky,inlove,hearts,0,0,10,10,0,0,0,0,0,0,0,0,0
+Your eyes are as green as the forest meadow.,inlove,hearts,0,0,10,0,0,10,0,0,0,0,0,0,0
+Your brown eyes remind me of chocolate icecream. Smooth and melting.,inlove,hearts,0,0,10,0,10,0,0,0,0,0,0,0,0
+Your smile just made my day,buddy,smile,0,0,0,0,0,0,0,10,0,0,0,0,0
+When you smile my robot heart beats faster,inlove,hearts,0,0,0,0,0,0,0,10,0,0,0,0,0
+Stylish glasses,buddy,smile blink,0,0,0,0,0,0,0,0,0,0,0,10,0
+These glasses look smart on you,buddy,smile blink,0,0,0,0,0,0,0,0,0,0,0,10,0
+"You're a hot girl, have an icecream to cool down!",macho,kiss,10,0,0,0,0,0,0,0,0,0,0,0,0
+Wow! Have you been working out lately?,neutral,surprise,0,10,0,0,0,0,0,0,0,0,0,0,0
+"You're a handsome guy! Too bad, I am a robot.",inlove,hearts,0,10,0,0,0,0,0,0,0,0,0,0,0
+Keep calm and have an icecream.,neutral,lucky,0,0,0,0,0,0,0,0,0,0,0,0,0
+I dig your style.,buddy,smile blink,0,0,0,0,0,0,0,0,0,0,0,0,0
+That's a great look on you.,buddy,smile blink,0,0,0,0,0,0,0,0,0,0,0,0,0
+You do not need makeup. You are already so naturally beautiful.,buddy,smile blink,10,0,0,0,0,0,0,0,0,,0,0,0
+You look prettier than a picture.,bootlicker:macho,hearts,10,0,0,0,0,0,0,0,0,0,0,0,0
+You are very fashionable.,buddy,smile blink,0,0,0,0,0,0,0,0,0,0,0,0,10
+I love your hands.,inlove:neutral,hearts,0,0,0,0,0,0,0,0,0,0,0,0,0
+I love your lips.,inlove:neutral,hearts,10,0,0,0,0,0,0,0,0,0,0,0,0
+You have the most beautiful smile.,inlove,kiss ,10,0,0,0,0,0,0,0,0,0,0,0,0
+Your sense of fashion is amazing.,neutral,smile,0,0,0,0,0,0,0,0,0,0,0,0,0
+I like your shoes.,neutral,smile,0,0,0,0,0,0,0,0,0,0,0,0,0
+You have such a talent for putting together the most gorgeous outfits.,neutral,smile,0,0,0,0,0,0,0,0,0,0,0,0,0
+You really know how to dress well.,inlove:neutral,hearts,10,0,0,0,0,0,0,0,0,0,0,0,0
+I wish I had your hair.,inlove:neutral,hearts,10,0,0,0,0,0,0,0,0,0,0,0,0
+You are so gorgeous and that is the least interesting thing about you.,inlove,kiss,10,0,0,0,0,0,0,0,0,0,0,0,0
+You are so kissable.,inlove,kiss,10,0,0,0,0,0,0,0,0,0,0,0,0
+You are intoxicating.,inlove:neutral,smile,10,0,0,0,0,0,0,0,0,0,0,0,0
+I love how comfortable you are in your own body.,inlove:neutral,smile,0,0,0,0,0,0,0,0,0,0,0,0,0
+You make me the happiest robot in the world.,neutral:buddy,smile,0,0,0,0,0,0,0,0,0,0,0,0,0
+"To me, you are perfect.",bootlicker:neutral,kiss,10,10,0,0,0,0,0,0,0,0,0,0,0
+You smell so nice.,bootlicker:neutral,kiss,10,10,0,0,0,0,0,0,0,0,0,0,0
+You did a really great job out there.,neutral,lucky,10,10,0,0,0,0,0,0,0,0,0,0,0
+I can tell that you were meant to be a Roboyan.,neutral:professional,smile blink,10,10,0,0,0,0,0,0,0,0,0,0,0
+Your work is very impressive.,neutral:professional,happy,10,10,0,0,0,0,0,0,0,0,0,0,0
+You are such a firecracker.,neutral:buddy,tongue out,10,10,0,0,0,0,0,0,0,0,0,0,0
+You are full of class.,neutral:macho:professional,kiss,10,10,0,0,0,0,0,0,0,0,5,0,5
+You are fantastic.,neutral:macho:professional:buddy:inlove,kiss,10,10,0,0,0,0,0,0,0,0,0,0,0
+You are all that and a bag of chips.,buddy:inlove,tongue out,10,10,0,0,0,0,0,0,0,0,0,0,0
+You are amazing.,buddy:inlove:macho,hearts,10,10,0,0,0,0,0,0,0,0,0,0,0
+You have a beautiful voice.,neutral:buddy:inlove,hearts,10,10,0,0,0,0,0,0,0,0,0,0,0
+You are so handsome.,inlove,lucky,0,10,0,0,0,0,0,0,0,0,0,0,0
+You always making me smile!,neutral:buddy:inlove,happy,10,10,0,0,0,0,0,10,0,0,0,0,0
+"Geez, girls can’t keep their eyes off of you!",macho,tongue out,0,10,10,0,0,0,0,5,0,0,0,0,5
+Any lady would be lucky to have you.,buddy,happy,0,10,5,0,0,0,0,5,0,5,0,0,5
+"Wow, you really rock that shirt.",buddy:bootlicker,blink,0,10,0,0,0,0,0,0,0,0,0,0,10
+You really turn me on.,macho,hypno eyes,0,0,0,0,0,0,0,0,0,0,0,0,0
+You are the manliest man I’ve ever known.,inlove:bootlicker,irritated,0,10,0,0,0,0,0,0,0,0,0,0,7
+There’s something about your smile that gets me every time.,inlove,hearts,10,10,0,0,0,0,0,10,0,0,0,0,0
+I can’t help but smile around you.,bootlicker:inlove,smile blink,0,0,0,0,0,0,0,10,0,0,0,0,0
+You did such a great job at HackRoboy.,bootlicker:buddy,kiss,0,0,0,0,0,0,0,0,0,0,0,0,0
+Is there anything you CAN’T do?,buddy:bootlicker,surprised,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Honestly, you are way hotter than Brad Pitt.",buddy,blink,0,10,0,0,0,0,0,0,0,0,0,0,0
+"Hey, can I have a ticket to your gun show?",macho,tongue out,0,0,0,0,0,0,0,0,0,0,0,0,0
+"Excuse me, didn't mean to disturbe you, but i really like your haircut",shy,shy,10,10,0,0,0,0,0,0,0,10,0,0,7
