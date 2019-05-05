@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
         rate.sleep()
     except rospy.ROSInterruptException:
-        pass
+        rospy.logerror("ROS InterruptEx")
 
     # Allow ROS to go to all callbacks.
     rospy.spin()

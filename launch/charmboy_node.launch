@@ -12,6 +12,6 @@
   <node pkg="charmboy" type="roboy_talk.py" name="roboy_talk"></node>
 
   <!-- Launch requried Roboy nodes -->
-  <include file="$(find roboy_face)/launch/roboy_face.launch"/>
+<!--  <include file="$(find roboy_face)/launch/roboy_face.launch"/>-->
 
 </launch>
