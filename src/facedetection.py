@@ -22,11 +22,8 @@ def detect_smile(img_mouth, detector_smile):
 	# cv2.waitKey(0)
 	if len(smile) > 0:
 		smile = 10
-		print('smile')
 	else:
 		smile = 0
-		print('no smile')
-
 	smile = {
 		"smile": smile
 	}
@@ -197,4 +194,3 @@ if __name__ == '__main__':
 		ret, frame = cap.read()
 
 		frame, img_face, features = facedetection(frame, detector, predictor, smile_cascade)
-		print(features)
