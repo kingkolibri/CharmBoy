@@ -2,12 +2,15 @@
 # python facial_landmarks.py --shape-predictor shape_predictor_68_face_landmarks.dat --image images/example_01.jpg 
 
 # import the necessary packages
-
-import numpy as np
-import imutils
-from imutils import face_utils
-import dlib
+import os
 import cv2
+import dlib
+import numpy as np
+from imutils import face_utils
+from scipy import stats
+from gtts import gTTS
+
+from compliment_picker import ComplimentPicker
 
 
 def detect_smile(img_mouth, detector_smile):
@@ -83,9 +86,9 @@ def checkeyecolor(img, landmarks):
 		blue = 10
 
 	color = {
-		"blue": blue,
-		"brown": brown,
-		"green": green
+		"eyes-blue": blue,
+		"eyes-brown": brown,
+		"eyes-green": green
 	}
 
 	return color
@@ -140,9 +143,6 @@ def isolate_roi(img, landmarks, detector_smile):
 			features.update(smile)
 		# mouthright_eyebrowleft_eyebrowright_eyeleft_eyenosejaw
 
-
-
-
 	return img, features
 
 
@@ -160,8 +160,6 @@ def facedetection(img, detector, predictor, detector_smile):
 
 	img, features = isolate_roi(img, shape, detector_smile)
 
-
-
 	# convert dlib's rectangle to a OpenCV-style bounding box
 	# [i.e., (x, y, w, h)], then draw the face bounding box
 	(x, y, w, h) = face_utils.rect_to_bb(rect)
@@ -174,12 +172,42 @@ def facedetection(img, detector, predictor, detector_smile):
 	for (x, y) in shape:
 		cv2.circle(frame, (x, y), 1, (0, 0, 255), -1)
 
-	return img, img_face, features
+	return img, img_face, shape, features
+
+
+def is_facing_camera(img, landmarks, threshold=25):
+
+    face_points = landmarks[0:17]
+    x_points = face_points[:, 0]
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x_points, face_points[:,1])
+    y_points = slope * x_points + intercept
+    line = np.array([x_points, y_points]).transpose()
+
+
+    d = []
+    for point in face_points:
+        d.append(np.linalg.norm(np.cross(line[-1] - line[0], line[0] - point)) / \
+            np.linalg.norm(line[-1] - line[0]))
+
+    d = np.array(d)
+    i = 0
+    j = 16
+    symmetrie = 0
+    while j-i > 1:
+        symmetrie = symmetrie + d[j] - d[i]
+        i = i+1
+        j = j-1
+
+    if symmetrie < threshold:
+        return True
+    else:
+        return False
 
 
 if __name__ == '__main__':
 
-
+	picker = ComplimentPicker('../data/compliment_database.csv')
 
 	# initialize dlib's face detector (HOG-based) and then create
 	# the facial landmark predictor
@@ -188,11 +216,25 @@ if __name__ == '__main__':
 	smile_cascade = cv2.CascadeClassifier('../models/smile.xml')
 
 	# Load Video
-	cap = cv2.VideoCapture('../data/testvideo_smile.mp4')
+	cap = cv2.VideoCapture(0)
 
 	while True:
 		# load the input image, resize it, and convert it to grayscale
 		ret, frame = cap.read()
 
-		frame, img_face, features = facedetection(frame, detector, predictor, smile_cascade)
+		features={}
+		frame, img_face, landmarks, features = facedetection(frame, detector, predictor, smile_cascade)
 		print(features)
+
+		if is_facing_camera(img=img_face, landmarks=landmarks, threshold=25):
+			compliment = picker.pick_compliment(features, personality=None)
+			print("Person looking at us! Panic!!")
+			tts = gTTS(text=compliment, lang='en')
+			tts.save("../data/charmboy.mp3")
+			os.system("mpg321 ../data/charmboy.mp3")
+
+			print(compliment)
+		else:
+			print("No person facing us detected.")
+
+

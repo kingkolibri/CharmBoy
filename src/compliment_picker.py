@@ -9,8 +9,8 @@ class ComplimentPicker:
 
     def __init__(self, csv_filename):
 
-        self.feature_names = ['female',	'male',	'eyes',	'eyes-blue',	'eyes-brown',	'eyes-green',	'nose',	'smile',
-                              'lips',	'hair',	'bracelet',	'glasses',	'style']
+        self.feature_names = ['eyes-blue',	'eyes-brown',	'eyes-green', 'smile']
+            # ['female',	'male',	'eyes',	'eyes-blue',	'eyes-brown',	'eyes-green',	'nose',	'smile', 'lips',	'hair',	'bracelet',	'glasses',	'style']
 
         self.compliments = pd.read_csv(csv_filename)
 
@@ -35,7 +35,6 @@ class ComplimentPicker:
 
 
 def test():
-    picker = ComplimentPicker('../data/compliment_database.csv')
     feat_vector = np.random.randint(10, size=(1, 13))
     print(feat_vector)
 
